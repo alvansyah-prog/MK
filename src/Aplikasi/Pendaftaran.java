@@ -5,6 +5,8 @@
  */
 package Aplikasi;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author acer
@@ -82,24 +84,33 @@ public class Pendaftaran extends javax.swing.JFrame {
         String nama_pengguna = Nama_pengguna.getText();
         String pass = new String(Konfirmasi_sandi.getPassword());
         Pengguna p = new Pengguna();
-        p.setUser(nama_pengguna);
-        p.setPassword(pass);
-        p.setNama_Perusahaan(nama_perusahaan);
-        int i = kon.simpan(p);
-        if (i==1) {
-            new Login().setVisible(true);
-            this.dispose();
-        } else {
+        if (!nama_pengguna.equals("")||!nama_perusahaan.equals("")||!pass.equals("")) {
+            p.setUser(nama_pengguna);
+            p.setPassword(pass);
+            p.setNama_Perusahaan(nama_perusahaan);
+            int i = kon.simpan(p);
+            if (i==1) {
+                new Login().setVisible(true);
+                this.dispose();
+            } else {
             reset_pass();
         }
+        } else {
+            JOptionPane.showMessageDialog(null, "Tolong isi semua datanya", "Pesan", 1);
+        }
+        
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void Konfirmasi_sandiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Konfirmasi_sandiKeyReleased
         // TODO add your handling code here:
         String kata=  new String(Kata_sandi.getPassword());
         String cek =  new String(Konfirmasi_sandi.getPassword());
-        if (!kata.equals(cek)) {
+        if (cek.equals("")) {
+            Pemberitahuan.setText(null);
+        }else if (!kata.equals(cek)) {
             Pemberitahuan.setText("Sepertinya kata sandimu tidak cocok");
+        }else if (kata.equals(cek)) {
+            Pemberitahuan.setText(null);
         }
     }//GEN-LAST:event_Konfirmasi_sandiKeyReleased
 
